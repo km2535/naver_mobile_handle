@@ -1,0 +1,136 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* 전체를 flex로 배치하고 버튼을 중간으로 가져옴 */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #00000066;
+}
+/* 그라데이션이 들어가는 중간 부분의 원형 */
+.menu .gradation {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  box-shadow: 0px -3px 2px rgb(80, 80, 80);
+  z-index: 9;
+  transition: 0.5s;
+}
+/* 실제로 그라데이션 적용되는 원형 */
+.menu .gradation div {
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(
+    circle at 50% 0,
+    rgba(0, 255, 170, 0.9) 20%,
+    rgba(0, 240, 199, 1) 35%,
+    rgba(0, 240, 200, 1) 50%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  border-radius: 50%;
+  animation: rotate 8s linear infinite;
+}
+/* 애니메이션을 적용하여 그라데이션을 움직임 */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+/* 작은 원형 설정 */
+.menu .circle {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  z-index: 100;
+  top: 35px;
+  left: 35px;
+  border: 3px solid #fff;
+  border-top: 0;
+  box-shadow: 0 2px 5px #a6bab4;
+  background: #85ffda;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.5s;
+}
+/* 흰색 큰원을 설정 */
+.menu_background {
+  position: relative;
+  top: -155px;
+  left: -75px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 75px solid #fff;
+  /* 45도씩 움직여야 정렬됨 */
+  transform: rotate(0);
+  transition: all 0.5s;
+}
+/* 아이콘의 li를 설정 */
+.menu li {
+  position: absolute;
+  list-style: none;
+  top: 62px;
+  left: -55px;
+  transform-origin: 130px;
+  z-index: 8;
+}
+/* 8개의 아이콘들을 순서대로 일정한 간격으로 배치함 */
+.menu_background li {
+  transform: rotate(calc(360deg / 8 * var(--i)));
+}
+.menu_background li a {
+  display: flex;
+  font-size: 1.5em;
+  justify-content: center;
+  align-items: center;
+  color: rgba(0, 240, 200, 1);
+  transform: rotate(calc(360deg / -8 * var(--i)));
+  z-index: 15;
+}
+/* 흰원판이 돌아갈때 아이콘을 반대로 같은 각도로 움직여 기준을 이룸 */
+/* 45도씩 움직여야 정렬됨 */
+/* 흰색 원이 돌아갈때 transition으로 부드럽게 위치를 잡음 */
+.icon {
+  transform: rotate(0);
+  transition: all 0.5s;
+}
+/* 작은원이 클릭되었을때 작게 만든다.*/
+.circle.active {
+  transform: scale(0.2);
+  background-color: #fff;
+  animation: circle_scale 2s linear infinite;
+  animation-direction: alternate-reverse;
+}
+@keyframes circle_scale {
+  0% {
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(0.4);
+  }
+  100% {
+    transform: scale(0.6);
+  }
+}
+/* active가 붙을때 작게 만든다. */
+.gradation.active {
+  transform: scale(0.55);
+  transition: 0.23s;
+}
+/* active가 붙을때 작게 만든다. */
+.menu_background.active {
+  transform: scale(0.32) !important;
+  transition: all 0.23s;
+}
+/* 아이콘 위에 마우스를 올리면 색상을 변경함. */
+.menu_background li a:hover .icon {
+  color: #ffa1ac;
+}
